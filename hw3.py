@@ -283,9 +283,9 @@ print("Highest OOB score found by RandomizedSearchCV: ", random_search.best_scor
 
 # Slide 14 end
 RF_prime = RandomForestClassifier(n_estimators=500, min_samples_split=18, min_impurity_decrease=0, max_leaf_nodes=12,
-                                  max_features=16, criterion='gini', n_jobs=-1, oob_score=True)
+                                  max_features=0.33, criterion='gini', n_jobs=-1, oob_score=True)
 
-RF_prime.fit(X_data.T, Z_data.T)
+RF_prime.fit(X_train, Z_train)
 
 oob_prime = RF_prime.oob_score_
 importances = RF_prime.feature_importances_
