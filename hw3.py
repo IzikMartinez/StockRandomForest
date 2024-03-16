@@ -281,11 +281,12 @@ print("Best parameters found by RandomizedSearchCV: ", random_search.best_params
 print("Highest OOB score found by RandomizedSearchCV: ", random_search.best_score_)
 """
 
+from sklearn.ensemble import RandomForestRegressor
 # Slide 14 end
-RF_prime = RandomForestClassifier(n_estimators=500, min_samples_split=18, min_impurity_decrease=0, max_leaf_nodes=12,
-                                  max_features=0.33, criterion='gini', n_jobs=-1, oob_score=True)
+RF_prime = RandomForestRegressor(n_estimators=500,max_features=36, n_jobs=-1, oob_score=True)
 
-RF_prime.fit(X_train, Z_train)
+Z_train.replace(['UP', 'DOWN', 'STABLE'], [1, 2, 0], inplace=True)
+RF_prime.fit(X_train.T, Z_train.T)
 
 oob_prime = RF_prime.oob_score_
 importances = RF_prime.feature_importances_
